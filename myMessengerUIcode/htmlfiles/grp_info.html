@@ -1,0 +1,156 @@
+
+<script src="../jsfiles/angular.min.js"></script>
+
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../cssfiles/bootstrap.min.css">
+  <link rel="stylesheet" href="../cssfiles/user_profile.css">
+  <script src="../jsfiles/jquery.min.js"></script>
+  <script src="../jsfiles/bootstrap.min.js"></script>
+  <script src="../jsfiles/angular.js"></script>
+  <script src="../jsfiles/angular-animate.js"></script>
+  <script src="../jsfiles/angular-sanitize.js"></script>
+  <script src="../jsfiles/ui-bootstrap-tpls-2.5.0.js"></script>
+  <script src="../jsfiles/grp_info.js"></script>
+</head>
+
+<body style="background-color:rgb(227, 250, 252)">
+
+	<div class="raw" ng-app="myApp" ng-controller="myCtrl" style="margin-top:50px">
+
+		<div class="col-sm-4">
+				<div class="adminlists">
+					<div class="panel-body table-responsive">
+						<table class="table table-bordered">
+							<thead>
+									<tr>
+											<th>Admin id</th>	
+									</tr>
+							</thead>
+							<tbody ng-repeat="x in currgrpinfo.group_admins">
+								<tr>
+									<td>
+										<button type="button" class="btn btn-link" ng-click="show_other_info(x)">
+												{{x}}
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+						
+				
+			
+			
+		</div>
+		<div class="col-sm-4">
+                <img src="../imgfiles/default.jpg" class="img-circle center-block" alt="Cinque Terre" width="300" height="235">
+                <div class="col-sm-6">
+                    <h3 align="center"> <b>{{currgrpinfo.group_name}}</b> </h3>
+                </div>
+                <br>
+                <div class="col-sm-4">
+					<button type="button"  data-toggle="dropdown" class="btn btn-md btn-primary dropdown-toggle">    
+						Rename group <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" > 
+						<li>
+							<input type="text" class="form-control" placeholder="enter new name"  ng-model="newgroupname">
+						</li>
+						<li>
+							<button type="button" class="btn btn-block btn-success" ng-click="rename_group()">Apply</button> 
+						</li>
+					</ul>
+				</div>
+ 
+
+				<br>
+                <h3 align="center"> <b>{{currgrpinfo._id}}</b> </h3>
+                <br><br>
+                <button type="button" ng-click="leave_group()" class="btn btn-block btn-danger ">    
+                    Leave Group
+                </button>
+				<button type="button" ng-click="back()" class="btn btn-block btn-primary ">    
+					Back To Profile
+				</button>
+		</div>
+
+
+		<div class="col-sm-4">
+                <div class="memberlists">
+                        <div class="panel-body table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                        <tr>
+                                                <th>Member Id</th>	
+                                        </tr>
+                                </thead>
+                                <tbody ng-repeat="x in currgrpinfo.group_members">
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-link" ng-click="show_other_info(x)">
+                                                    {{x}}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                            <button type="button"  data-toggle="dropdown" class="btn btn-md btn-primary dropdown-toggle">    
+                                [+]Members <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu col-xs-12"> 
+                                <li>
+                                    <h5>Select Contacts</h5>	
+                                </li>
+                                <li ng-repeat="x in newlist">
+                                     <input type="checkbox" ng-init='checkStatus=false' ng-model='checkStatus' ng-click="update_add_list(checkStatus,x)"><b>{{x}}</b>    	
+                                </li>
+                                <li>	
+                                    <button type="button" class="btn btn-block btn-success" ng-click="add_selected_members()">Add</button> 
+                                </li>
+            
+                            </ul>
+                    </div>
+                    <div class="col-sm-4">
+                            <button type="button"  data-toggle="dropdown" class="btn btn-md btn-primary dropdown-toggle">    
+                               [-]Member <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu col-xs-12"> 
+                                <li>
+                                    <h5>Select Members</h5>	
+                                </li>
+                                <li ng-repeat="x in allmemberlist">
+                                     <input type="checkbox" ng-init='checkStatus=false' ng-model='checkStatus' ng-click="update_remove_list(checkStatus,x)"><b>{{x}}</b>    	
+                                </li>
+                                <li>	
+                                    <button type="button" class="btn btn-block btn-danger" ng-click="remove_selected_members()">Remove</button> 
+                                </li>
+                            </ul>
+                    </div>
+                    <div class="col-sm-4">
+                            <button type="button"  data-toggle="dropdown" class="btn btn-md btn-primary dropdown-toggle">    
+                               Make Admin <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu col-xs-12"> 
+                                <li>
+                                    <h5>Select Members</h5>	
+                                </li>
+                                <li ng-repeat="x in members_but_not_admin">
+                                     <input type="checkbox" ng-init='checkStatus=false' ng-model='checkStatus' ng-click="update_admin_list(checkStatus,x)"><b>{{x}}</b>    	
+                                </li>
+                                <li>	
+                                    <button type="button" class="btn btn-block btn-success" ng-click="make_them_admin()">Make</button> 
+                                </li>
+                            </ul>
+                    </div>
+	
+		</div>
+	</div>
+
+</body>
+

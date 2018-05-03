@@ -1,0 +1,230 @@
+
+<script src="../jsfiles/angular.min.js"></script>
+
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../cssfiles/bootstrap.min.css">
+  <link rel="stylesheet" href="../cssfiles/user_profile.css">
+  <script src="../jsfiles/jquery.min.js"></script>
+  <script src="../jsfiles/bootstrap.min.js"></script>
+  <script src="../jsfiles/angular.js"></script>
+  <script src="../jsfiles/angular-animate.js"></script>
+  <script src="../jsfiles/angular-sanitize.js"></script>
+  <script src="../jsfiles/ui-bootstrap-tpls-2.5.0.js"></script>
+  <script src="../jsfiles/user_profile.js"></script>
+</head>
+
+<body style="background-color:rgb(227, 250, 252)">
+
+	<div class="raw" ng-app="myApp" ng-controller="myCtrl" style="margin-top:50px">
+
+		<div class="col-sm-4">
+				<div class="contlists">
+					<div class="panel-body table-responsive">
+						<table class="table table-bordered">
+							<thead>
+									<tr>
+											<th>Select</th>
+											<th>Contact Name</th>
+											<th>buttons</th>	
+									</tr>
+							</thead>
+							<tbody ng-repeat="x in sviews">
+								<tr>
+									<td> </td>
+									<td>
+										<button type="button" class="btn btn-link" ng-click="show_other_info(x.Cont_id)">
+												{{x.Cont_id}}
+										</button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-success" ng-click="show_view(x.Cont_id,0)">
+											message
+										</button>	
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+						
+				<div class="grplists">
+					<div class="panel-body table-responsive">
+						<table class="table table-bordered">
+							<thead>
+									<tr>
+											<th>Select</th>
+											<th>Group Name</th>
+											<th>buttons</th>	
+									</tr>
+							</thead>
+							<tbody ng-repeat="x in gviews">
+								<tr>
+									<td></td>
+									<td>
+										<button type="button" class="btn btn-link" ng-click="group_info(x.Group_id)">
+												{{x.Group_id}}
+										</button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-success" ng-click="show_view(0,x.Group_id)">
+											message
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<button type="button"  data-toggle="dropdown" class="btn btn-block btn-primary dropdown-toggle">    
+						[+/-]Contact <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" > 
+						<li>
+							<input type="text" class="form-control" placeholder="enter contact id"  ng-model="membercontid">
+						</li>
+						<li>
+							<button type="button" class="btn btn-block btn-success" ng-click="add_contact()">Add</button> 
+						</li>
+						<li> 
+							<button type="button" class="btn btn-block btn-danger" ng-click="delete_contact()">Delete</button> 
+						</li>
+						<li> 
+							<button type="button" class="btn btn-block btn-link" ng-click="block_contact()">Block</button> 
+						</li>
+					</ul>
+			</div>
+			<div class="col-sm-5">
+				<button type="button"  data-toggle="dropdown" class="btn btn-block btn-primary dropdown-toggle">    
+					Create Group <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu col-xs-12"> 
+					<li>
+						<input type="text" class="form-control" placeholder="enter group name"  ng-model="groupname">
+					</li>
+				    <li>
+						<h5>Select Members</h5>	
+					</li>
+					<li ng-repeat="x in continfo.cont_list">
+						 <input type="checkbox" ng-init='checkStatus=false' ng-model='checkStatus' ng-click="add_member_to_grplist(checkStatus,x)"><b>{{x}}</b>    	
+					</li>
+					<li>	
+						<button type="button" class="btn btn-block btn-success" ng-click="create_group()">create_group</button> 
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="chats">
+				<div class="panel-body table-responsive">
+					<table class="table table-bordered">
+						<thead>
+								<tr>
+										<th>Chat Page ViewS</th>	
+								</tr>
+						</thead>
+						<tbody ng-repeat="x in currviewinfo.msg_ids">
+							<tr>
+								<td>
+									<button type="button" ng-click="get_msg_by_id(x)" data-toggle="dropdown" class="btn btn-md btn-link dropdown-toggle">    
+											{{x}} <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" > 
+										<li>{{msg.sender}}</li>
+										<li>{{msg.msg_value}}</li>
+										<li> 
+											<button type="button" class="btn btn-danger" ng-click="delete_msg(x)"> DELETE MSG </button> 
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		    <form>
+				<div class="form-group">
+					<textarea class="form-control" rows="3" id="comment" placeholder="Type Your Message Here" ng-model="msgarea"></textarea>
+				</div>
+				<button type="button" ng-click="create_msg()" class="btn btn-block btn-success ">    
+						SEND 
+				</button>
+			</form>		
+		</div>
+
+
+		<div class="col-sm-4">
+
+			<img src="../imgfiles/default.jpg" class="img-circle center-block" alt="Cinque Terre" width="300" height="235">
+			<br>
+			<table>
+				<tr>
+					<td>
+						<h3 align="left"> <b>User Name : {{userinfo.user_name}}</b> </h3>
+					</td>
+					<td>
+						<button type="button" data-toggle="dropdown"  class="btn btn-block btn-link dropdown-toggle">    
+							Change User Name
+						</button>
+						<ul class="dropdown-menu" > 
+							<li>
+								<input type="text" class="form-control" placeholder="Enter New Username"  ng-model="newusername">
+							</li>
+							<li>
+								<button type="button" class="btn btn-block btn-success" ng-click="change_user_name()">
+									Change	
+								</button> 
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h3 align="left"> <b>Status : {{userinfo.user_status}}</b> </h3>
+					</td>
+					<td>
+						<button type="button" data-toggle="dropdown"  class="btn btn-block btn-link dropdown-toggle">    
+							Change User Status
+						</button>
+						<ul class="dropdown-menu" > 
+							<li>
+								<input type="text" class="form-control" placeholder="Enter New UserStatus"  ng-model="newuserstatus">
+							</li>
+							<li>
+								<button type="button" class="btn btn-block btn-success" ng-click="change_user_status()">
+									Change
+								</button> 
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+			<h3 align="left"> <b>Email : {{userinfo.email}}</b> </h3>
+			<h3 align="left"><b>Contact Id : {{contid}}</b></h3>
+			<br>
+			<button type="button" data-toggle="dropdown" class="btn btn-block btn-link dropdown-toggle">    
+				change Password
+			</button>
+			<ul class="dropdown-menu" > 
+				<li>
+					<input type="text" class="form-control" placeholder="enter old Password"  ng-model="useroldpasswd">
+				</li>
+				<li>
+					<input type="text" class="form-control" placeholder="enter new password"  ng-model="usernewpasswd">
+				</li>
+				<li>
+					<button type="button" class="btn btn-block btn-success" ng-click="change_user_passwd()">
+						Change	
+					</button> 
+				</li>
+			</ul>
+			<button type="button" ng-click="logout()" class="btn btn-block btn-danger ">    
+				Logout
+			</button>
+		</div>
+	</div>
+
+</body>
+
