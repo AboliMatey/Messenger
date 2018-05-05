@@ -1,0 +1,4 @@
+Simple service for cnoducting surveys and polls -
+
+To create sample surveys run the test cases:
+cd tests ; go test; cd ..

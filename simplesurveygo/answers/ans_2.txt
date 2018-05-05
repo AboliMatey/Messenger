@@ -1,0 +1,15 @@
+What is the significance of the resource class in flask-restful :=
+
+It gives multtiple Http method to importing the resource .
+flask-restful provides main block by resource class.
+it returns multiple return value.
+
+
+ Explain the job of dispatch_request method :=
+
+ dispatch_request take parameters as arg it checking meth and request.method func with "head"
+checking instance is created with meth if instance is created then checking request from request.method 
+and [] in else assign decorators as method_decorators nd checking decorator in decorators to assign method values in
+meth taking resp as meth with parameters checking instance and return resp 
+  taking representations = self.representations or OrderedDict() function and meadiatype is in representations
+  then data ,code,headers unpack resp functionnd resp.headers = meadiatype and return resp

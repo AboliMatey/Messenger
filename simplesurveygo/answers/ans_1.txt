@@ -1,0 +1,15 @@
+What are restful services :=
+
+Restful services is a api services .
+RESTful is a web service using flask in python
+The Restful designe to fit the HTTP protocol.
+Http methods by get put and post methods .
+
+
+How do they compare with regular services :=
+
+Restful service implimented by get put post call . restful service required json format  while regular will not.
+Resgular service works with XML format  while restful service will be in HTML,XML,JSON etc.
+Regular service have limited resource while restful not.
+Restful service use clint server .
+Regular service requires binary attachment while restful all data types directly.
